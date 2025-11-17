@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkSphere</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="container">
+        <div class="logo">
+            <svg width="58" height="58" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="48" height="48" rx="12" fill="#1E5BFF" />
+                <rect x="16" y="12" width="16" height="24" rx="2.5" stroke="white" stroke-width="2" />
+                <rect x="19" y="16" width="3" height="3" rx="0.7" fill="white" />
+                <rect x="19" y="21" width="3" height="3" rx="0.7" fill="white" />
+                <rect x="19" y="26" width="3" height="3" rx="0.7" fill="white" />
+                <rect x="26" y="16" width="3" height="3" rx="0.7" fill="white" />
+                <rect x="26" y="21" width="3" height="3" rx="0.7" fill="white" />
+                <rect x="26" y="26" width="3" height="3" rx="0.7" fill="white" />
+                <rect x="22" y="29" width="4" height="7" rx="1" fill="white" />
+            </svg>
+
+
+        </div>
+        <div>
+            <h1 class="title">WorkSphere</h1>
+            <p class="description">Gestion du personnel et des espaces</p>
+        </div>
+
+    </header>
+   
+  <main class="workspace">
+     
+  
+    <section class="panel panel-left">
+
+      <div class="panel-header">
+        <h2>Personnel non assigné</h2>
+        <span class="count" id="unassigned-count">0</span>
+      </div>
+
+      <button class="btn-primary" id="btn-add">+ Ajouter un employé</button>
+
+      <ul class="employee-list" id="unassigned-list">
+       
+      </ul>
+
+    </section>
+
+    
+    <section class="panel panel-right">
+
+      <h2 class="title2">Plan d’étage - WorkSphere</h2>
+
+      <div class="floor-grid">
+
+        
+        <div class="zone-card" data-zone="conference" data-max="10">
+          <div class="zone-header">
+            <h3 class="salle-name">Salle de conférence</h3>
+            <button class="zone-add" data-zone-target="conference">+</button>
+          </div>
+
+          <p class="zone-empty">Aucun employé assigné</p>
+          <ul class="zone-list" data-zone-list="conference">
+
+          </ul>
+        </div>
+
+        <div class="zone-card" data-zone="reception" data-max="3">
+          <div class="zone-header">
+            <h3 class="salle-name">Réception</h3>
+            <button class="zone-add" data-zone-target="reception">+</button>
+          </div>
+
+          <p class="zone-empty">Aucun employé assigné</p>
+          <ul class="zone-list" data-zone-list="reception"></ul>
+        </div>
+
+        <div class="zone-card" data-zone="serveurs" data-max="4">
+          <div class="zone-header">
+            <h3 class="salle-name">Salle des serveurs</h3>
+            <button class="zone-add" data-zone-target="serveurs">+</button>
+          </div>
+
+          <p class="zone-empty">Aucun employé assigné</p>
+          <ul class="zone-list" data-zone-list="serveurs"></ul>
+        </div>
+
+        <div class="zone-card" data-zone="securite" data-max="3">
+          <div class="zone-header">
+            <h3 class="salle-name">Salle de sécurité</h3>
+            <button class="zone-add" data-zone-target="securite">+</button>
+          </div>
+
+          <p class="zone-empty">Aucun employé assigné</p>
+          <ul class="zone-list" data-zone-list="securite"></ul>
+        </div>
+
+        <div class="zone-card" data-zone="personnel" data-max="15">
+          <div class="zone-header">
+            <h3 class="salle-name">Salle du personnel</h3>
+            <button class="zone-add" data-zone-target="personnel">+</button>
+          </div>
+
+          <p class="zone-empty">Aucun employé assigné</p>
+          <ul class="zone-list" data-zone-list="personnel"></ul>
+        </div>
+
+        <div class="zone-card" data-zone="archives" data-max="2">
+          <div class="zone-header">
+            <h3 class="salle-name">Salle d'archives</h3>
+            <button class="zone-add" data-zone-target="archives">+</button>
+          </div>
+
+          <p class="zone-empty">Aucun employé assigné</p>
+          <ul class="zone-list" data-zone-list="archives"></ul>
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+<div class="modal" id="employee-modal">
+  <div class="modal-content">
+    
+    <span class="modal-close" id="close-modal">&times;</span>
+
+    <h3>Ajouter un nouvel employé</h3>
+    <form id="employee-form">
+      <div class="form-group">
+        <label for="employee-name">Nom complet *</label>
+        <input type="text" id="employee-name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="role">Rôle *</label>
+        <select id="role" required>
+          <option value="" disabled selected>Choisir un rôle...</option>
+          <option value="receptionniste">Réceptionniste</option>
+          <option value="technicien_it">Technicien IT</option>
+          <option value="agent_securite">Agent de sécurité</option>
+          <option value="manager">Manager</option>
+          <option value="nettoyage">Nettoyage</option>
+          <option value="autre">Autre</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="employee-email">Email *</label>
+        <input type="email" id="employee-email" required>
+      </div>
+
+      
+      <div class="form-group">
+        <label for="employee-phone">Téléphone *</label>
+        <input type="tel" id="employee-phone" required>
+      </div>
+
+      <div class="form-group">
+        <label for="employee-photo">Photo (URL)</label>
+        <input type="url" id="employee-photo" placeholder="https://example.com/photo.jpg">
+      </div>
+
+      <div class="photo-preview-box">
+        <img id="photo-preview" src="" alt="Prévisualisation" />
+        <p id="preview-text">Prévisualisation de la photo</p>
+      </div>
+
+      <h4>Expériences professionnelles</h4>
+
+      <div id="experience-list"></div>
+
+      <button type="button" id="add-experience" class="add-exp-btn">
+        + Ajouter une expérience
+      </button>
+
+      <div class="modal-buttons">
+        <button type="button" class="btn-cancel" id="cancel-btn">Annuler</button>
+        <button type="submit" class="btn-submit">Ajouter l'employé</button>
+      </div> 
+
+    </form>
+
+  </div>
+</div>
+    <script src="config.js"></script>
+    
+</body>
+
+</html>
