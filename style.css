@@ -8,7 +8,7 @@
 body {
 	margin: 0;
 	padding: 0;
-    background-color: rgb(215, 225, 240);
+    background-color: #DDA565;
    
 }
 
@@ -18,23 +18,28 @@ body {
  align-items: center;
  width:100%;
   height: 120px;
-  background-color: white;
+  background-color:  #d59751;
   gap: 9px;
+  border-radius: 5px;
+  color: #ffffff;
 }
 .logo {
     margin-left: 10px;
     width: 60px;
     height: 60px;
+    
 }
 .title{
     margin-top: -5px;
     font-family: Arial, Helvetica, sans-serif;
-    color:rgb(18, 68, 68)
+    color:rgb(18, 68, 68);
+    color: #ffffff;
 }
 .description {
     margin-top: 5px;
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(76, 76, 76);
+    color: #ffffff;
     
 }
 .workspace {
@@ -54,7 +59,7 @@ body {
 
 
 .panel {
-  background: white;
+  background: #E7BB7E;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -97,6 +102,7 @@ body {
 .salle-name {
  font-family:Arial, Helvetica, sans-serif;
     color:rgb(18, 68, 68);
+    margin-top: -16px;
 
 }
 
@@ -127,8 +133,39 @@ body {
   background: #fafafa;
   padding: 15px;
   border-radius: 10px;
-  border: 1px solid #ddd;
-    min-height: 200px; 
+  min-height: 200px; 
+
+}
+#card1 {
+background-image: url('/assets/conf.png');
+background-size: contain;
+border-radius: 8px;
+
+}
+#card2 {
+background-image: url('/assets/salle\ de\ reception.png');
+background-size: contain;
+border-radius: 8px;
+}
+#card3 {
+background-image: url('/assets/server.png');
+background-size: contain;
+border-radius: 8px;
+}
+#card6 {
+background-image: url('/assets/arch.png');
+background-size: contain;
+border-radius: 8px;
+}
+#card4 {
+background-image: url('/assets/sec.png');
+background-size: contain;
+border-radius: 8px;
+}
+#card5 {
+background-image: url('/assets/perso.png');
+background-size: contain;
+border-radius: 8px;
 }
 
 .zone-header {
@@ -473,4 +510,4 @@ body {
     grid-row: auto;
     min-height: 130px;
   }
-}
+}  
