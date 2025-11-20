@@ -148,7 +148,6 @@
           <option value="agent_securite">Agent de sécurité</option>
           <option value="manager">Manager</option>
           <option value="nettoyage">Nettoyage</option>
-          <option value="autre">Autre</option>
         </select>
       </div>
 
@@ -163,10 +162,10 @@
         <input type="tel" id="employee-phone" required>
       </div>
 
-      <div class="form-group">
-        <label for="employee-photo">Photo (URL)</label>
-        <input type="url" id="employee-photo" placeholder="https://example.com/photo.jpg">
-      </div>
+     <div class="form-group">
+  <label for="employee-photo-file">Photo (depuis appareil)</label>
+  <input type="file" id="employee-photo-file" accept="image/*">
+</div>
 
       <div class="photo-preview-box">
         <img id="photo-preview" src="" alt="Prévisualisation" />
@@ -174,8 +173,14 @@
       </div>
 
       <h4>Expériences professionnelles</h4>
-
-      <div id="experience-list"></div>
+      <div id="experience-list">
+     <div class="experience-item">
+    <input type="text" placeholder="Entreprise">
+    <input type="text" placeholder="Poste">
+    <input type="text" placeholder="Durée (ex: 2020-2022)">
+    <button type="button" class="remove-exp-btn">X</button>
+  </div>
+</div>
 
       <button type="button" id="add-experience" class="add-exp-btn">
         + Ajouter une expérience
@@ -190,6 +195,22 @@
 
   </div>
 </div>
+<!-- Modal sélection d'employé pour une zone -->
+<div class="modal" id="select-employee-modal">
+  <div class="select-modal-content">
+
+    <div class="select-modal-header">
+      <h3 id="select-modal-title">Sélectionner un employé</h3>
+      <button type="button" id="select-modal-close" class="select-close-btn">X</button>
+    </div>
+
+    <ul id="select-employee-list" class="select-employee-list">
+      <!-- la liste des employés va se remplir en JS -->
+    </ul>
+
+  </div>
+</div>
+
     <script src="config.js"></script>
     
 </body>
