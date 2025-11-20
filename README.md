@@ -1,4 +1,3 @@
-:
 
 📌 Worksphere Projet : 
 Ce projet est une application web responsive permettant de gérer les employés à travers une représentation visuelle du plan des locaux. L’interface offre la possibilité d’ajouter, déplacer et supprimer du personnel tout en respectant les règles métier (par exemple, seuls les réceptionnistes peuvent occuper la réception, les techniciens IT la salle des serveurs, etc.). Les profils détaillés des employés (photo, rôle, coordonnées, expériences) sont accessibles directement depuis le plan, et les zones sont soumises à des restrictions logiques et de capacité. Conçu avec des technologies front-end modernes (HTML, CSS Flexbox/Grid, animations), le projet vise une expérience utilisateur fluide et intuitive sur ordinateur, tablette et mobile, avec une publication possible sur GitHub Pages ou Vercel.
