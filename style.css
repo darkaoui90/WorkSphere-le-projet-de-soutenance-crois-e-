@@ -691,6 +691,13 @@ border-radius: 8px;
   height: 100%;
   object-fit: cover;
 }
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 2px;
+  display: block;
+  height: 16px;
+}
 
 @media (max-width: 768px) {
   #employee-form {

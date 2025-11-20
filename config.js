@@ -14,6 +14,7 @@ const selectList = document.getElementById('select-employee-list');
 const selectTitle = document.getElementById('select-modal-title');
 const selectCloseBtn = document.getElementById('select-modal-close');
 
+
 let currentZone = null; // zone li ana katkhddem 3liha daba (conference, reception...)
 
 function closeSelectModal() {
@@ -152,6 +153,40 @@ addExpBtn.addEventListener("click", () => {
   const removeBtn = expDiv.querySelector(".remove-exp-btn");
   removeBtn.addEventListener("click", () => expDiv.remove());
 });
+
+//code regex
+// VALIDATION EN TEMPS RÉEL 
+
+// Inputs
+const emailInput = document.getElementById("employee-email");
+const phoneInput = document.getElementById("employee-phone");
+
+// Error spans
+const emailError = document.getElementById("email-error");
+const phoneError = document.getElementById("phone-error");
+
+// Regex li bssaatiiin
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const phoneRegex = /^[0-9]{10}$/;
+
+// Email live check
+emailInput.addEventListener("input", () => {
+  if (!emailRegex.test(emailInput.value)) {
+    emailError.textContent = "Email invalide.";
+  } else {
+    emailError.textContent = "";
+  }
+});
+
+// Phone live check
+phoneInput.addEventListener("input", () => {
+  if (!phoneRegex.test(phoneInput.value)) {
+    phoneError.textContent = "Numéro invalide (10 chiffres).";
+  } else {
+    phoneError.textContent = "";
+  }
+});
+
 //form affiche l employee f liste
 
 form.addEventListener("submit", (e) => {
@@ -168,6 +203,25 @@ form.addEventListener("submit", (e) => {
   const roleLabel = roleSelect.options[roleSelect.selectedIndex].textContent; // ex: "Réceptionniste"
   const email = emailInput.value.trim();
   const phone = phoneInput.value.trim();
+
+
+
+ //  SIMPLE REGEX CHECK
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^[0-9]{10}$/;
+
+    // FINAL REGEX CHECK
+  if (!emailRegex.test(email)) {
+    emailError.textContent = "Email invalide.";
+    emailInput.focus();
+    return;
+  }
+
+  if (!phoneRegex.test(phone)) {
+    phoneError.textContent = "Numéro invalide (10 chiffres).";
+    phoneInput.focus();
+    return;
+  }
 
   // photo: ila previewImg mabana, ma ndir walo
   const photo =
@@ -223,9 +277,8 @@ form.addEventListener("submit", (e) => {
   modal.classList.remove("is-open");
 });
 
-/* ============================================================
-   1) RULES: واش employee يقدر يدخل ل zone ؟
-   ============================================================ */
+/* 
+   1) RULES: واش employee يقدر يدخل ل zone */
 function canAssign(employee, zone) {
   const role = employee.role;
 
@@ -254,9 +307,9 @@ function getZoneLabel(zoneKey) {
   }
 }
 
-/* ============================================================
+/* 
    2) LISTENERS 3LA "+ BUTTONS" DYAL ZONES
-   ============================================================ */
+    */
 const zoneButtons = document.querySelectorAll(".zone-add");
 
 zoneButtons.forEach(btn => {
@@ -266,9 +319,9 @@ zoneButtons.forEach(btn => {
   });
 });
 
-/* ============================================================
+/* 
    3) SELECTION D'UN EMPLOYÉ — VERSION SIMPLE (prompt)
-   ============================================================ */
+ */
 function openZoneSelection(zone) {
 
   const allowedEmployees = employees.filter(emp =>
