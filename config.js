@@ -15,10 +15,10 @@ const selectTitle = document.getElementById('select-modal-title');
 const selectCloseBtn = document.getElementById('select-modal-close');
 
 
-let currentZone = null; // zone li ana katkhddem 3liha daba (conference, reception...)
+let currentZone = null; // zone li ana kankhddem 3liha daba (conference, reception...)
 
 
-// MODAL PROFIL EMPLOYÉ 
+// modal profile employe
 const profileModal = document.getElementById("profile-modal");
 const closeProfileBtn = document.getElementById("close-profile");
 
@@ -30,6 +30,7 @@ const profileLocationEl = document.getElementById("profile-location");
 const profileEmailEl    = document.getElementById("profile-email");
 const profilePhoneEl    = document.getElementById("profile-phone");
 const profileExpList    = document.getElementById("profile-experiences")
+
 function closeSelectModal() {
   selectModal.classList.remove('is-open');
   selectList.innerHTML = "";
@@ -38,7 +39,7 @@ function closeSelectModal() {
 
 selectCloseBtn.addEventListener('click', closeSelectModal);
 
-// ila klikiina 3la l'overlay (barra) nsddo modal
+//tsad lform ila klikit 3la overlay 
 selectModal.addEventListener('click', (e) => {
   if (e.target === selectModal) {
     closeSelectModal();
@@ -504,23 +505,25 @@ function assignToZone(employee, zone) {
   updateZoneCount(zone); 
 
   // 5) bouton X bach nrdoh unassigned 3awd
-  const removeBtn = li.querySelector(".remove-from-zone");
-  removeBtn.addEventListener("click", () => {
+ const removeBtn = li.querySelector(".remove-from-zone");
+removeBtn.addEventListener("click", (event) => {
+  
+  event.stopPropagation();   
 
-    // n7iydoh men zone
-    li.remove();
+  // n7iydoh men zone
+  li.remove();
 
-    // nbdlo location
-    employee.location = "unassigned";
+  // nbdlo location
+  employee.location = "unassigned";
 
-    // nrj3o carte jdida fl liste lissar
-    const unassignedCard = createEmployeeCard(employee);
-    unassignedList.appendChild(unassignedCard);
+  // nrj3o carte jdida fl liste lissar
+  const unassignedCard = createEmployeeCard(employee);
+  unassignedList.appendChild(unassignedCard);
 
-    // nupdate compteur
-    updateUnassignedCount();
-    updateZoneCount(zone);
-  });
+  // nupdate compteur
+  updateUnassignedCount();
+});
+
 }
 
 function openProfile(employee) {

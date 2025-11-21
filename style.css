@@ -215,34 +215,34 @@ body {
 
 }
 #card1 {
-background-image: url('/assets/conf.png');
+background-image: url('assets/conf.png');
 background-size: cover;
 border-radius: 8px;
 
 
 }
 #card2 {
-background-image: url('/assets/salle\ de\ reception.png');
+background-image: url('assets/salle\ de\ reception.png');
 background-size:cover;
 border-radius: 8px;
 }
 #card3 {
-background-image: url('/assets/server.png');
+background-image: url('assets/server.png');
 background-size: cover;
 border-radius: 8px;
 }
 #card6 {
-background-image: url('/assets/arch.png');
+background-image: url('assets/arch.png');
 background-size: cover;
 border-radius: 8px;
 }
 #card4 {
-background-image: url('/assets/sec.png');
+background-image: url('assets/sec.png');
 background-size: cover;
 border-radius: 8px;
 }
 #card5 {
-background-image: url('/assets/perso.png');
+background-image: url('assets/perso.png');
 background-size: cover;
 border-radius: 8px;
 }
