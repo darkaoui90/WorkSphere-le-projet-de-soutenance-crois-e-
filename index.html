@@ -61,6 +61,7 @@
         <div class="zone-card" data-zone="conference" data-max="10" id="card1">
           <div class="zone-header">
             <h3 class="salle-name">Salle de conférence</h3>
+            <span class="zone-counter" data-zone-counter="conference">0/10</span>
             <button class="zone-add" data-zone-target="conference">+</button>
           </div>
 
@@ -73,6 +74,7 @@
         <div class="zone-card" data-zone="reception" data-max="3" id="card2">
           <div class="zone-header">
             <h3 class="salle-name">Réception</h3>
+            <span class="zone-counter" data-zone-counter="reception">0/3</span>
             <button class="zone-add" data-zone-target="reception">+</button>
           </div>
 
@@ -83,6 +85,7 @@
         <div class="zone-card" data-zone="serveurs" data-max="4" id="card3">
           <div class="zone-header">
             <h3 class="salle-name">Salle des serveurs</h3>
+            <span class="zone-counter" data-zone-counter="serveurs">0/4</span>
             <button class="zone-add" data-zone-target="serveurs">+</button>
           </div>
 
@@ -93,6 +96,7 @@
         <div class="zone-card" data-zone="securite" data-max="3" id="card4">
           <div class="zone-header">
             <h3 class="salle-name">Salle de sécurité</h3>
+            <span class="zone-counter" data-zone-counter="securite">0/3</span>
             <button class="zone-add" data-zone-target="securite">+</button>
           </div>
 
@@ -103,6 +107,8 @@
         <div class="zone-card" data-zone="personnel" data-max="15" id="card5">
           <div class="zone-header">
             <h3 class="salle-name">Salle du personnel</h3>
+            <span class="zone-counter" data-zone-counter="personnel">0/15</span>
+
             <button class="zone-add" data-zone-target="personnel">+</button>
           </div>
 
@@ -113,6 +119,7 @@
         <div class="zone-card" data-zone="archives" data-max="2" id="card6">
           <div class="zone-header">
             <h3 class="salle-name">Salle d'archives</h3>
+            <span class="zone-counter" data-zone-counter="archives">0/2</span>
             <button class="zone-add" data-zone-target="archives">+</button>
           </div>
 
@@ -214,6 +221,41 @@
 
   </div>
 </div>
+
+ <!-- Modal profil employé -->
+<div class="modal" id="profile-modal">
+  <div class="profile-content">
+
+    <span class="modal-close" id="close-profile">&times;</span>
+
+    <h3>Profil de l'employé</h3>
+
+    <div class="profile-header">
+      <div class="employee-avatar big">
+        <img id="profile-photo" src="" alt="Photo employé">
+        <div id="profile-photo-placeholder" class="avatar-placeholder"></div>
+      </div>
+
+      <div class="profile-main-info">
+        <p id="profile-name" class="profile-name"></p>
+        <span id="profile-role" class="profile-role-badge"></span>
+        <p id="profile-location" class="profile-location"></p>
+      </div>
+    </div>
+
+    <div class="profile-contact">
+      <p><strong>Email :</strong> <span id="profile-email"></span></p>
+      <p><strong>Téléphone :</strong> <span id="profile-phone"></span></p>
+    </div>
+
+    <div class="profile-exp">
+      <h4>Expériences professionnelles</h4>
+      <ul id="profile-experiences"></ul>
+    </div>
+
+  </div>
+</div>
+
 
     <script src="config.js"></script>
     

@@ -17,6 +17,19 @@ const selectCloseBtn = document.getElementById('select-modal-close');
 
 let currentZone = null; // zone li ana katkhddem 3liha daba (conference, reception...)
 
+
+// ==== MODAL PROFIL EMPLOYÉ ====
+const profileModal = document.getElementById("profile-modal");
+const closeProfileBtn = document.getElementById("close-profile");
+
+const profilePhoto      = document.getElementById("profile-photo");
+const profilePhotoPh    = document.getElementById("profile-photo-placeholder");
+const profileNameEl     = document.getElementById("profile-name");
+const profileRoleEl     = document.getElementById("profile-role");
+const profileLocationEl = document.getElementById("profile-location");
+const profileEmailEl    = document.getElementById("profile-email");
+const profilePhoneEl    = document.getElementById("profile-phone");
+const profileExpList    = document.getElementById("profile-experiences")
 function closeSelectModal() {
   selectModal.classList.remove('is-open');
   selectList.innerHTML = "";
@@ -104,6 +117,12 @@ function createEmployeeCard(employee) {
     </div>
     <button class="employee-delete" type="button" data-id="${employee.id}">X</button>
   `;
+
+
+    const mainDiv = li.querySelector(".employee-main");
+  if (mainDiv) {
+    mainDiv.addEventListener("click", () => openProfile(employee));
+  }
 
   const deleteBtn = li.querySelector(".employee-delete");
   deleteBtn.addEventListener("click", () => {
@@ -373,13 +392,41 @@ function openZoneSelection(zone) {
   selectModal.classList.add("is-open");
 }
 
+function updateZoneCount(zone) {
+  // n9lb 3la card dyal had zone
+  const zoneCard = document.querySelector(`.zone-card[data-zone="${zone}"]`);
+  if (!zoneCard) return;
+
+  const max = parseInt(zoneCard.dataset.max, 10) || 0;
+
+  // liste d'employés f had zone
+  const zoneList = document.querySelector(`[data-zone-list="${zone}"]`);
+  const current = zoneList ? zoneList.children.length : 0;
+
+  // span dyal counter
+  const counter = document.querySelector(`[data-zone-counter="${zone}"]`);
+  if (counter) {
+    counter.textContent = `${current}/${max}`;
+  }
+}
 
 /*
    4) AJOUTER EMPLOYÉ À LA ZONE VISUELLEMENT
  */
 function assignToZone(employee, zone) {
+    
+  const zoneCard = document.querySelector(`.zone-card[data-zone="${zone}"]`);
   const zoneList = document.querySelector(`[data-zone-list="${zone}"]`);
-  if (!zoneList) return;
+  if (!zoneCard || !zoneList) return;
+
+  const max = parseInt(zoneCard.dataset.max, 10) || 0;
+  const current = zoneList.children.length;
+
+  if (current >= max) {
+    alert(`Cette zone est pleine (${current}/${max}).`);
+    return;
+  }
+
 
   // 1) had l-employé ma b9ach unassigned
   employee.location = zone;
@@ -418,7 +465,14 @@ function assignToZone(employee, zone) {
     </div>
   `;
 
+   // click 3la carte f zone => ouvrir profil
+  const mainDivZone = li.querySelector(".employee-main");
+  if (mainDivZone) {
+    mainDivZone.addEventListener("click", () => openProfile(employee));
+  }
+
   zoneList.appendChild(li);
+  updateZoneCount(zone); 
 
   // 5) bouton X bach nrdoh unassigned 3awd
   const removeBtn = li.querySelector(".remove-from-zone");
@@ -436,6 +490,73 @@ function assignToZone(employee, zone) {
 
     // nupdate compteur
     updateUnassignedCount();
+    updateZoneCount(zone);
   });
 }
+
+function openProfile(employee) {
+  // nom + rôle
+  profileNameEl.textContent = employee.name;
+  profileRoleEl.textContent = employee.roleLabel;
+
+  // location
+  let locText = "Non assigné";
+  if (employee.location && employee.location !== "unassigned") {
+    // ila 3andek getZoneLabel deja, t9dar t3ayet 3liha
+    locText = "Zone : " + employee.location;
+  }
+  profileLocationEl.textContent = locText;
+
+  // email / phone
+  profileEmailEl.textContent = employee.email || "-";
+  profilePhoneEl.textContent = employee.phone || "-";
+
+  // photo
+  if (employee.photo) {
+    profilePhoto.src = employee.photo;
+    profilePhoto.style.display = "block";
+    profilePhotoPh.style.display = "none";
+    profilePhotoPh.textContent = "";
+  } else {
+    profilePhoto.style.display = "none";
+    profilePhotoPh.style.display = "flex";
+    profilePhotoPh.textContent = employee.name ? employee.name[0] : "?";
+  }
+
+  // expériences
+  profileExpList.innerHTML = "";
+  if (employee.experiences && employee.experiences.length > 0) {
+    employee.experiences.forEach(exp => {
+      const li = document.createElement("li");
+      li.textContent =
+        (exp.entreprise || "") +
+        (exp.poste ? " - " + exp.poste : "") +
+        (exp.duree ? " (" + exp.duree + ")" : "");
+      profileExpList.appendChild(li);
+    });
+  } else {
+    const li = document.createElement("li");
+    li.textContent = "Aucune expérience renseignée.";
+    profileExpList.appendChild(li);
+  }
+
+  profileModal.classList.add("is-open");
+}
+
+closeProfileBtn.addEventListener("click", () => {
+  profileModal.classList.remove("is-open");
+});
+
+// fermer si on clique sur l'overlay
+profileModal.addEventListener("click", (e) => {
+  if (e.target === profileModal) {
+    profileModal.classList.remove("is-open");
+  }
+});
+
+// initialiser tous les compteurs au chargement
+document.querySelectorAll(".zone-card").forEach(card => {
+  const z = card.dataset.zone;
+  updateZoneCounter(z);
+});
 
