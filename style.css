@@ -223,27 +223,27 @@ border-radius: 8px;
 }
 #card2 {
 background-image: url('/assets/salle\ de\ reception.png');
-background-size: contain;
+background-size:cover;
 border-radius: 8px;
 }
 #card3 {
 background-image: url('/assets/server.png');
-background-size: contain;
+background-size: cover;
 border-radius: 8px;
 }
 #card6 {
 background-image: url('/assets/arch.png');
-background-size: contain;
+background-size: cover;
 border-radius: 8px;
 }
 #card4 {
 background-image: url('/assets/sec.png');
-background-size: contain;
+background-size: cover;
 border-radius: 8px;
 }
 #card5 {
 background-image: url('/assets/perso.png');
-background-size: contain;
+background-size: cover;
 border-radius: 8px;
 }
 
@@ -279,7 +279,7 @@ border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
-/* باش المضمون يبقا masdoud mzyan ومايطغاش على background */
+
 .zone-list .employee-main {
   background: transparent;   /* khalliha transparante hit l-li 3ndo bg */
 }
@@ -614,7 +614,7 @@ border-radius: 8px;
   background: #ffead2;
 }
 
-/* ===== Modal de sélection d'employé pour une zone ===== */
+/*  Modal de selection d'employe pour une zone */
 
 .select-modal-content {
   background: #ffffff;
@@ -663,7 +663,7 @@ border-radius: 8px;
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #fdf5e6;   /* brown chiwa باش يمشي مع theme */
+  background: #fdf5e6;  
   border-radius: 10px;
   padding: 8px 10px;
   cursor: pointer;

@@ -3,12 +3,12 @@ const openBtn = document.getElementById('btn-add');
 const closeBtn = document.getElementById('close-modal');
 const closeBtnform = document.querySelector('.btn-cancel');
 let employees = [];
-// form + liste dial "Personnel non assigné"
+// form + liste dial "Personnel non assigne"
 const form = document.getElementById('employee-form');
 const unassignedList = document.getElementById('unassigned-list');
 const unassignedCount = document.getElementById('unassigned-count'); 
 
-// modal de sélection d'employé pour une zone
+// modal d selection demploye pour une zone
 const selectModal = document.getElementById('select-employee-modal');
 const selectList = document.getElementById('select-employee-list');
 const selectTitle = document.getElementById('select-modal-title');
@@ -18,7 +18,7 @@ const selectCloseBtn = document.getElementById('select-modal-close');
 let currentZone = null; // zone li ana katkhddem 3liha daba (conference, reception...)
 
 
-// ==== MODAL PROFIL EMPLOYÉ ====
+// MODAL PROFIL EMPLOYÉ 
 const profileModal = document.getElementById("profile-modal");
 const closeProfileBtn = document.getElementById("close-profile");
 
@@ -218,8 +218,8 @@ form.addEventListener("submit", (e) => {
   const phoneInput = document.getElementById("employee-phone");
 
   const name  = nameInput.value.trim();
-  const role  = roleSelect.value; // ex: "receptionniste"
-  const roleLabel = roleSelect.options[roleSelect.selectedIndex].textContent; // ex: "Réceptionniste"
+  const role  = roleSelect.value;
+  const roleLabel = roleSelect.options[roleSelect.selectedIndex].textContent; 
   const email = emailInput.value.trim();
   const phone = phoneInput.value.trim();
 
@@ -249,20 +249,49 @@ form.addEventListener("submit", (e) => {
       : "";
 
 
-  const experiences = [];
+    const experiences = [];
   const expItems = experienceList.querySelectorAll(".experience-item");
-  expItems.forEach(item => {
+
+  // regex: kay9bel format b7al "2020-2023"
+  const dureeRegex = /^(\d{4})\s*-\s*(\d{4})$/;
+
+  for (let item of expItems) {
     const inputs = item.querySelectorAll("input");
-    if (!inputs.length) return;
+    if (!inputs.length) continue;
 
     const entreprise = inputs[0].value.trim();
     const poste      = inputs[1].value.trim();
     const duree      = inputs[2].value.trim();
 
-    if (entreprise || poste || duree) {
-      experiences.push({ entreprise, poste, duree });
+    // ila ma3marnach walo, nskipiw had ligne
+    if (!entreprise && !poste && !duree) continue;
+
+    // ila 3mro champ dyal duree, ndir contrôle
+    if (duree) {
+      const match = duree.match(dureeRegex);
+
+      // format khaté2
+      if (!match) {
+        alert('Durée invalide. Exemple: 2020-2023');
+        inputs[2].focus();
+        return; // nwa9af submit kamel
+      }
+
+      const startYear = parseInt(match[1], 10);
+      const endYear   = parseInt(match[2], 10);
+
+      // début khaso ykoun sghar mn fin
+      if (startYear >= endYear) {
+        alert("L'année de début doit être inférieure à l'année de fin (ex: 2020-2023).");
+        inputs[2].focus();
+        return;
+      }
     }
-  });
+
+    //  l'expérience l-array
+    experiences.push({ entreprise, poste, duree });
+  }
+
 
 
   const newEmployee = {
