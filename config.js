@@ -174,10 +174,7 @@ addExpBtn.addEventListener("click", () => {
   removeBtn.addEventListener("click", () => expDiv.remove());
 });
 
-//code regex
-// VALIDATION EN TEMPS RÉEL 
 
-// Inputs
 const emailInput = document.getElementById("employee-email");
 const phoneInput = document.getElementById("employee-phone");
 
@@ -185,7 +182,7 @@ const phoneInput = document.getElementById("employee-phone");
 const emailError = document.getElementById("email-error");
 const phoneError = document.getElementById("phone-error");
 
-// Regex li bssaatiiin
+
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const phoneRegex = /^[0-9]{10}$/;
 
@@ -212,7 +209,7 @@ phoneInput.addEventListener("input", () => {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  // 1) njiib l-values men form
+
   const nameInput  = document.getElementById("employee-name");
   const roleSelect = document.getElementById("role");
   const emailInput = document.getElementById("employee-email");
@@ -226,11 +223,11 @@ form.addEventListener("submit", (e) => {
 
 
 
- //  SIMPLE REGEX CHECK
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^[0-9]{10}$/;
 
-    // FINAL REGEX CHECK
+    
   if (!emailRegex.test(email)) {
     emailError.textContent = "Email invalide.";
     emailInput.focus();
@@ -243,7 +240,6 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
-  // photo: ila previewImg mabana, ma ndir walo
   const photo =
     previewImg && previewImg.style.display === "block"
       ? previewImg.src
@@ -253,7 +249,7 @@ form.addEventListener("submit", (e) => {
     const experiences = [];
   const expItems = experienceList.querySelectorAll(".experience-item");
 
-  // regex: kay9bel format b7al "2020-2023"
+  
   const dureeRegex = /^(\d{4})\s*-\s*(\d{4})$/;
 
   for (let item of expItems) {
@@ -264,24 +260,24 @@ form.addEventListener("submit", (e) => {
     const poste      = inputs[1].value.trim();
     const duree      = inputs[2].value.trim();
 
-    // ila ma3marnach walo, nskipiw had ligne
+   
     if (!entreprise && !poste && !duree) continue;
 
-    // ila 3mro champ dyal duree, ndir contrôle
+    
     if (duree) {
       const match = duree.match(dureeRegex);
 
-      // format khaté2
+     
       if (!match) {
         alert('Durée invalide. Exemple: 2020-2023');
         inputs[2].focus();
-        return; // nwa9af submit kamel
+        return; 
       }
 
       const startYear = parseInt(match[1], 10);
       const endYear   = parseInt(match[2], 10);
 
-      // début khaso ykoun sghar mn fin
+      
       if (startYear >= endYear) {
         alert("L'année de début doit être inférieure à l'année de fin (ex: 2020-2023).");
         inputs[2].focus();
@@ -289,7 +285,7 @@ form.addEventListener("submit", (e) => {
       }
     }
 
-    //  l'expérience l-array
+    
     experiences.push({ entreprise, poste, duree });
   }
 
@@ -307,16 +303,16 @@ form.addEventListener("submit", (e) => {
     location: "unassigned"
   };
 
-  // 4) nzidoh l-array
+ 
   employees.push(newEmployee);
 
-  // 5) nsaybo carte jdida f "Personnel non assigne"
+  
   const li = createEmployeeCard(newEmployee);
   unassignedList.appendChild(li);
 
-  // 6) nupdate l-compteur
+ 
   updateUnassignedCount();
-  // 7) nresetti form + preview + experiences
+  
   form.reset();
   experienceList.innerHTML = "";
   previewImg.style.display = "none";
@@ -326,12 +322,11 @@ form.addEventListener("submit", (e) => {
   modal.classList.remove("is-open");
 });
 
-/* 
-   1) RULES: واش employee يقدر يدخل ل zone */
+
 function canAssign(employee, zone) {
   const role = employee.role;
 
-  if (role === "manager") return true; // manager partout
+  if (role === "manager") return true; 
 
   if (role === "nettoyage" && zone === "archives") return false;
 
@@ -341,7 +336,7 @@ function canAssign(employee, zone) {
 
   if (zone === "securite" && role !== "agent_securite") return false;
 
-  return true; // باقي الزونات مفتوحين
+  return true; 
 }
 
 function getZoneLabel(zoneKey) {
@@ -356,9 +351,7 @@ function getZoneLabel(zoneKey) {
   }
 }
 
-/* 
-   2) LISTENERS 3LA "+ BUTTONS" DYAL ZONES
-    */
+
 const zoneButtons = document.querySelectorAll(".zone-add");
 
 zoneButtons.forEach(btn => {
@@ -368,9 +361,6 @@ zoneButtons.forEach(btn => {
   });
 });
 
-/* 
-   3) SELECTION D'UN EMPLOYÉ — VERSION SIMPLE (prompt)
- */
 function openZoneSelection(zone) {
 
   const allowedEmployees = employees.filter(emp =>
@@ -384,13 +374,13 @@ function openZoneSelection(zone) {
 
   currentZone = zone;
 
-  // titre dial lmodal
+
   selectTitle.textContent = "Sélectionner un employé pour " + getZoneLabel(zone);
 
-  // nfargho la liste
+  
   selectList.innerHTML = "";
 
-  // nsaybo karta sghira pour chaque employé
+  
   allowedEmployees.forEach(emp => {
     const li = document.createElement("li");
     li.classList.add("select-employee-item");
@@ -409,7 +399,7 @@ function openZoneSelection(zone) {
       </div>
     `;
 
-    // ila klikiina 3la had l'élément → n3aynoh fl-zone
+    
     li.addEventListener("click", () => {
       assignToZone(emp, currentZone);
       closeSelectModal();
@@ -418,31 +408,29 @@ function openZoneSelection(zone) {
     selectList.appendChild(li);
   });
 
-  // n7ell lmodal
+
   selectModal.classList.add("is-open");
 }
 
 function updateZoneCount(zone) {
-  // n9lb 3la card dyal had zone
+ 
   const zoneCard = document.querySelector(`.zone-card[data-zone="${zone}"]`);
   if (!zoneCard) return;
 
   const max = parseInt(zoneCard.dataset.max, 10) || 0;
 
-  // liste d'employés f had zone
+  
   const zoneList = document.querySelector(`[data-zone-list="${zone}"]`);
   const current = zoneList ? zoneList.children.length : 0;
 
-  // span dyal counter
+  
   const counter = document.querySelector(`[data-zone-counter="${zone}"]`);
   if (counter) {
     counter.textContent = `${current}/${max}`;
   }
 }
 
-/*
-   4) AJOUTER EMPLOYÉ À LA ZONE VISUELLEMENT
- */
+
 function assignToZone(employee, zone) {
     
   const zoneCard = document.querySelector(`.zone-card[data-zone="${zone}"]`);
@@ -458,21 +446,21 @@ function assignToZone(employee, zone) {
   }
 
 
-  // 1) had l-employé ma b9ach unassigned
+  
   employee.location = zone;
 
-  // 2) n7aydoh men liste "Personnel non assigné" ila kayn
+  
   const cardInList = document.querySelector(
     `.employee-delete[data-id="${employee.id}"]`
   );
   if (cardInList) {
-    cardInList.parentElement.remove(); // li = parent dyal button
+    cardInList.parentElement.remove(); 
   }
 
-  // 3) nupdate l-compteur
+ 
   updateUnassignedCount();
 
-  // 4) nsaybo l-karta dyal zone
+  
   const li = document.createElement("li");
   li.classList.add("employee-item");
 
@@ -495,7 +483,7 @@ function assignToZone(employee, zone) {
     </div>
   `;
 
-   // click 3la carte f zone => ouvrir profil
+   
   const mainDivZone = li.querySelector(".employee-main");
   if (mainDivZone) {
     mainDivZone.addEventListener("click", () => openProfile(employee));
@@ -504,46 +492,46 @@ function assignToZone(employee, zone) {
   zoneList.appendChild(li);
   updateZoneCount(zone); 
 
-  // 5) bouton X bach nrdoh unassigned 3awd
+
  const removeBtn = li.querySelector(".remove-from-zone");
 removeBtn.addEventListener("click", (event) => {
   
   event.stopPropagation();   
 
-  // n7iydoh men zone
+  
   li.remove();
 
-  // nbdlo location
+
   employee.location = "unassigned";
 
-  // nrj3o carte jdida fl liste lissar
+ 
   const unassignedCard = createEmployeeCard(employee);
   unassignedList.appendChild(unassignedCard);
 
-  // nupdate compteur
+  
   updateUnassignedCount();
 });
 
 }
 
 function openProfile(employee) {
-  // nom + rôle
+
   profileNameEl.textContent = employee.name;
   profileRoleEl.textContent = employee.roleLabel;
 
-  // location
+
   let locText = "Non assigné";
   if (employee.location && employee.location !== "unassigned") {
-    // ila 3andek getZoneLabel deja, t9dar t3ayet 3liha
+   
     locText = "Zone : " + employee.location;
   }
   profileLocationEl.textContent = locText;
 
-  // email / phone
+
   profileEmailEl.textContent = employee.email || "-";
   profilePhoneEl.textContent = employee.phone || "-";
 
-  // photo
+
   if (employee.photo) {
     profilePhoto.src = employee.photo;
     profilePhoto.style.display = "block";
@@ -555,7 +543,7 @@ function openProfile(employee) {
     profilePhotoPh.textContent = employee.name ? employee.name[0] : "?";
   }
 
-  // expériences
+  
   profileExpList.innerHTML = "";
   if (employee.experiences && employee.experiences.length > 0) {
     employee.experiences.forEach(exp => {
@@ -579,7 +567,7 @@ closeProfileBtn.addEventListener("click", () => {
   profileModal.classList.remove("is-open");
 });
 
-// fermer si on clique sur l'overlay
+
 profileModal.addEventListener("click", (e) => {
   if (e.target === profileModal) {
     profileModal.classList.remove("is-open");

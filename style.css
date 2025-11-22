@@ -270,9 +270,9 @@ border-radius: 8px;
   list-style: none;
   margin-top: 10px;
 }
-/* EMPLOYEES DAKHIL ZONES (FLOOR PLAN) */
+
 .zone-list .employee-item {
-  background-color: rgba(221, 165, 101, 0.95); /* brown mnsjem m3a theme */
+  background-color: rgba(221, 165, 101, 0.95); 
   padding: 8px 10px;
   border-radius: 8px;
   margin-bottom: 8px;
@@ -281,7 +281,7 @@ border-radius: 8px;
 
 
 .zone-list .employee-main {
-  background: transparent;   /* khalliha transparante hit l-li 3ndo bg */
+  background: transparent;   
 }
 
 .zone-list .employee-name {
@@ -614,7 +614,7 @@ border-radius: 8px;
   background: #ffead2;
 }
 
-/*  Modal de selection d'employe pour une zone */
+
 
 .select-modal-content {
   background: #ffffff;
@@ -656,7 +656,7 @@ border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  overflow-y: auto;      /* scroll ila twalet */
+  overflow-y: auto;     
 }
 
 .select-employee-item {
@@ -675,7 +675,7 @@ border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-/* avatar sghir f modal */
+
 .employee-avatar.small {
   width: 40px;
   height: 40px;
@@ -758,7 +758,7 @@ border-radius: 8px;
 .profile-location {
   margin-top: 6px;
   font-size: 14px;
-  color: #b45309; /* orange */
+  color: #b45309; 
 }
 
 .profile-contact p {
