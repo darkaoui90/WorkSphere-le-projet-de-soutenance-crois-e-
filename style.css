@@ -535,9 +535,10 @@ border-radius: 8px;
 
 .experience-item {
   display: grid;
-  grid-template-columns: 1.1fr 1.1fr 1fr auto;
+  grid-template-columns: 1.1fr 1.1fr 1fr 1fr auto;
   gap: 8px;
 }
+
 
 .experience-item input {
   padding: 6px 8px;

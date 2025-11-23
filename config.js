@@ -21,7 +21,6 @@ let currentZone = null; // zone li ana kankhddem 3liha daba (conference, recepti
 // modal profile employe
 const profileModal = document.getElementById("profile-modal");
 const closeProfileBtn = document.getElementById("close-profile");
-
 const profilePhoto      = document.getElementById("profile-photo");
 const profilePhotoPh    = document.getElementById("profile-photo-placeholder");
 const profileNameEl     = document.getElementById("profile-name");
@@ -29,7 +28,12 @@ const profileRoleEl     = document.getElementById("profile-role");
 const profileLocationEl = document.getElementById("profile-location");
 const profileEmailEl    = document.getElementById("profile-email");
 const profilePhoneEl    = document.getElementById("profile-phone");
-const profileExpList    = document.getElementById("profile-experiences")
+const profileExpList    = document.getElementById("profile-experiences");
+
+//add experience fields
+const experienceList = document.getElementById("experience-list");
+const addExpBtn = document.getElementById("add-experience");
+
 
 function closeSelectModal() {
   selectModal.classList.remove('is-open');
@@ -85,9 +89,6 @@ photoFileInput.addEventListener("change", () => {
   reader.readAsDataURL(file);
 });
 
-//add experience fields
-const experienceList = document.getElementById("experience-list");
-const addExpBtn = document.getElementById("add-experience");
 
 function updateUnassignedCount() {
   if (!unassignedCount) return;
@@ -161,11 +162,13 @@ addExpBtn.addEventListener("click", () => {
   expDiv.classList.add("experience-item");
 
   expDiv.innerHTML = `
-    <input type="text" placeholder="Entreprise">
-    <input type="text" placeholder="Poste">
-    <input type="text" placeholder="Durée (ex: 2020-2022)">
-    <button type="button" class="remove-exp-btn">X</button>
-  `;
+  <input type="text" placeholder="Entreprise">
+  <input type="text" placeholder="Poste">
+  <input type="date" class="exp-start" placeholder="Date début">
+  <input type="date" class="exp-end" placeholder="Date fin">
+  <button type="button" class="remove-exp-btn">X</button>
+`;
+
 
   experienceList.appendChild(expDiv);
 
@@ -178,7 +181,6 @@ addExpBtn.addEventListener("click", () => {
 const emailInput = document.getElementById("employee-email");
 const phoneInput = document.getElementById("employee-phone");
 
-// Error spans
 const emailError = document.getElementById("email-error");
 const phoneError = document.getElementById("phone-error");
 
@@ -246,48 +248,51 @@ form.addEventListener("submit", (e) => {
       : "";
 
 
-    const experiences = [];
-  const expItems = experienceList.querySelectorAll(".experience-item");
+  const experiences = [];
+const expItems = experienceList.querySelectorAll(".experience-item");
+
+for (let item of expItems) {
+  const inputs = item.querySelectorAll("input");
+
+  const entreprise = inputs[0].value.trim();
+  const poste      = inputs[1].value.trim();
+  const startValue = inputs[2].value; 
+  const endValue   = inputs[3].value; 
+
+
+  if (!entreprise && !poste && !startValue && !endValue) {
+    continue;
+  }
+
+
+  if (!startValue || !endValue) {
+    alert("Merci de remplir la date de début et de fin pour chaque expérience.");
+    return;
+  }
+
+  const startDate = new Date(startValue);
+  const endDate   = new Date(endValue);
 
   
-  const dureeRegex = /^(\d{4})\s*-\s*(\d{4})$/;
-
-  for (let item of expItems) {
-    const inputs = item.querySelectorAll("input");
-    if (!inputs.length) continue;
-
-    const entreprise = inputs[0].value.trim();
-    const poste      = inputs[1].value.trim();
-    const duree      = inputs[2].value.trim();
-
-   
-    if (!entreprise && !poste && !duree) continue;
-
-    
-    if (duree) {
-      const match = duree.match(dureeRegex);
-
-     
-      if (!match) {
-        alert('Durée invalide. Exemple: 2020-2023');
-        inputs[2].focus();
-        return; 
-      }
-
-      const startYear = parseInt(match[1], 10);
-      const endYear   = parseInt(match[2], 10);
-
-      
-      if (startYear >= endYear) {
-        alert("L'année de début doit être inférieure à l'année de fin (ex: 2020-2023).");
-        inputs[2].focus();
-        return;
-      }
-    }
-
-    
-    experiences.push({ entreprise, poste, duree });
+  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+    alert("Les dates d'expérience sont invalides.");
+    return;
   }
+
+  if (startDate >= endDate) {
+    alert("La date de début doit être avant la date de fin.");
+    return;
+  }
+  const dureeLabel = startValue.slice(0, 4) + " - " + endValue.slice(0, 4);
+
+  experiences.push({
+    entreprise,
+    poste,
+    start: startValue,
+    end: endValue,
+    duree: dureeLabel
+  });
+}
 
 
 
@@ -318,7 +323,7 @@ form.addEventListener("submit", (e) => {
   previewImg.style.display = "none";
   previewText2.style.display = "block";
 
-  // 8) nsedd l-modal
+   
   modal.classList.remove("is-open");
 });
 
@@ -341,8 +346,8 @@ function canAssign(employee, zone) {
 
 function getZoneLabel(zoneKey) {
   switch (zoneKey) {
-    case "conference": return "Salle de conférence";
-    case "reception":  return "Réception";
+    case "conference": return "Salle de conference";
+    case "reception":  return "Reception";
     case "serveurs":   return "Salle des serveurs";
     case "securite":   return "Salle de sécurité";
     case "personnel":  return "Salle du personnel";
@@ -510,6 +515,9 @@ removeBtn.addEventListener("click", (event) => {
 
   
   updateUnassignedCount();
+
+  updateZoneCount(zone);
+
 });
 
 }
